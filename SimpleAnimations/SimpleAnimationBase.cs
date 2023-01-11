@@ -68,8 +68,18 @@ namespace DCFApixels
         public bool IsRelative { get => _isRelative; set => _isRelative = value; }
         public bool RandomStartTime { get => _randomStartTime; set => _randomStartTime = value; }
         public float StartTime { get => _startTime; set => _startTime = value <= 1f ? value : value % 1f; }
+        public float Duration
+        {
+            get => _duration; set
+            {
+                if (value < float.Epsilon)
+                {
+                    value = float.Epsilon;
+                }
+                _duration = value;
+            }
+        }
         public eUpdateMode UpdateMode { get => _updateMode; set => _updateMode = value; }
-        public float Duration { get => _duration; set => _duration = value; }
         public int Count { get => _count; set => _count = value; }
         public eLoopMode LoopMode { get => _loopMode; set => _loopMode = value; }
         public AnimationCurve Curve { get => _curve; set => _curve = value; }
