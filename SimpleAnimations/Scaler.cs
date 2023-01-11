@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace DCFApixels
 {
+    [AddComponentMenu("SimpleAnimations/Scaler", 11)]
     public class Scaler : SimpleAnimationBase
     {
         [Header("Scaler")]
