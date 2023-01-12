@@ -1,8 +1,11 @@
 # Unity-SimpleAnimations
 Simple animations for UI elements or other objects
 ## Введение
+<img src="https://user-images.githubusercontent.com/99481254/211995934-dce766d7-ba94-43d1-9d5a-24844b170663.gif" width="380">
+
 Часто при дизайне UI в Unity бывает необходимо сделать простую анимацию для некоторых элементов, например, прыгающий указатель или масштабирующаяся кнопка. Данный мини-проект решает эту проблему, давая дизайнеру UI возможность быстро настраивать такие анимации. Помимо элементов UI можно анимировать и другие объекты.
 ## Компоненты
+
 ![image](https://user-images.githubusercontent.com/99481254/211899059-b60e711b-a794-4478-af73-ecca6ac0e133.png)
 
 В проекте содержится 3 компонента анимирующие объект: `Mover`, `Rotator`, `Scaler`.
