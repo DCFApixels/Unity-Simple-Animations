@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityRandom = UnityEngine.Random;
 using UnityTime = UnityEngine.Time;
@@ -8,6 +6,7 @@ namespace DCFApixels
 {
     public abstract class SimpleAnimationBase : MonoBehaviour
     {
+        #region Editor
 #if UNITY_EDITOR
         protected void OnValidate()
         {
@@ -17,6 +16,7 @@ namespace DCFApixels
             }
         }
 #endif
+        #endregion
 
         [Header("Time")]
         [SerializeField]
@@ -42,7 +42,6 @@ namespace DCFApixels
         [SerializeField]
         private bool _yoyoCurve = true;
 
-
         //[SerializeField]
         //private bool _isTimeScaled = true; //TODO
 
@@ -60,7 +59,7 @@ namespace DCFApixels
                 _playOnEnable = value;
                 if(!_isRunning && enabled)
                 {
-                    StartAnimatiion();
+                    StartAnimation();
                 }
             }
         }
@@ -89,19 +88,18 @@ namespace DCFApixels
         public float Time => _time;
         public int LoopNumber => _loopNumber;
         public TransformState RelativeTransform => _relativeTransform;
-
+        #endregion
         private void Start()
         {
             _relativeTransform = new TransformState(transform);
             Init();
         }
-        #endregion
 
         private void OnEnable()
         {
             if(_isRunning == false && _playOnEnable)
             {
-                StartAnimatiion();
+                StartAnimation();
             }
         }
 
@@ -138,8 +136,8 @@ namespace DCFApixels
         #endregion
 
         #region Controls
-        [ContextMenu("StartAnimatiion")]
-        public void StartAnimatiion()
+        [ContextMenu("StartAnimation")]
+        public void StartAnimation()
         {
             _loopNumber = 0;
             if(_randomStartTime)
@@ -175,7 +173,7 @@ namespace DCFApixels
 
         private void Apply(float deltaTime)
         {
-            if (_isPaused)
+            if (_isPaused || !_isRunning)
                 return;
 
             if (_count >= 0 && _loopNumber >= _count)
@@ -206,6 +204,7 @@ namespace DCFApixels
         protected virtual void Init() { }
         protected abstract void Do(float t);
 
+        #region Utils
         public enum eLoopMode
         {
             Restart,
@@ -239,5 +238,76 @@ namespace DCFApixels
                 localScale = transform.localScale;
             }
         }
+        #endregion
     }
 }
+
+#if UNITY_EDITOR
+namespace DCFApixels.Editors
+{
+    using System;
+    using System.Reflection;
+    using UnityEditor;
+
+    [CustomEditor(typeof(SimpleAnimationBase), true)]
+    public class SimpleAnimationBaseEditor : Editor
+    {
+        private static Type _baseType = typeof(SimpleAnimationBase);
+        private static MethodInfo _startMethodInfo   = _baseType.GetMethod("StartAnimation", BindingFlags.Instance | BindingFlags.Public);
+        private static MethodInfo _stopMethodInfo    = _baseType.GetMethod("StopAnimation"    , BindingFlags.Instance | BindingFlags.Public);
+        private static MethodInfo _pauseMethodInfo   = _baseType.GetMethod("PauseAnimation"   , BindingFlags.Instance | BindingFlags.Public);
+        private static MethodInfo _resumeMethodInfo  = _baseType.GetMethod("ResumeAnimation"  , BindingFlags.Instance | BindingFlags.Public);
+
+        private static Color _timeBarBackgroundColor = new Color(0, 0, 0, 0.34f);
+        private static Color _timeBarForegroundColor = new Color(111f / 255f, 186f / 255f, 1f, 0.37f);
+
+        private const float TIMEBAR_HEIGHT = 4f;
+
+        public override void OnInspectorGUI()
+        {
+            SimpleAnimationBase target = this.target as SimpleAnimationBase;
+
+            Rect timebarRect = GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth, TIMEBAR_HEIGHT);
+            Rect rect = timebarRect;
+            rect.width = rect.width * (target.Time / target.Duration);
+
+            EditorGUI.DrawRect(timebarRect, _timeBarBackgroundColor);
+            EditorGUI.DrawRect(rect, _timeBarForegroundColor);
+
+            GUILayout.Space(EditorGUIUtility.standardVerticalSpacing);
+
+            base.OnInspectorGUI();
+
+            if(!target.IsRunning)
+            {
+                if (GUILayout.Button("Start"))
+                {
+                    _startMethodInfo.Invoke(target, null);
+                }
+            }
+            else
+            {
+                if (GUILayout.Button("Stop"))
+                {
+                    _stopMethodInfo.Invoke(target, null);
+                }
+            }
+
+            if(!target.IsPaused)
+            {
+                if (GUILayout.Button("Pause"))
+                {
+                    _pauseMethodInfo.Invoke(target, null);
+                }
+            }
+            else
+            {
+                if (GUILayout.Button("Resume"))
+                {
+                    _resumeMethodInfo.Invoke(target, null);
+                }
+            }
+        }
+    }
+}
+#endif
