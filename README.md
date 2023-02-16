@@ -8,7 +8,7 @@ Simple animations for UI elements or other objects
 
 ![image](https://user-images.githubusercontent.com/99481254/211899059-b60e711b-a794-4478-af73-ecca6ac0e133.png)
 
-В проекте содержится 3 компонента анимирующие объект: `Mover`, `Rotator`, `Scaler`.
+В проекте содержится 4 компонента анимирующие объект: `Mover`, `Rotator`, `Scaler`, `SpriteCycler`.
 
 Перечень общих свойств:
 * <b>Duration</b> - Продолжительность анимации в секундах. Не может быть меньше или равно 0.
