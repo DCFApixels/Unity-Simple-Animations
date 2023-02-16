@@ -5,7 +5,7 @@ namespace DCFApixels
     [AddComponentMenu("SimpleAnimations/Scaler", 11)]
     public class Scaler : SimpleAnimationBase
     {
-        [Header("Scaler")]
+        [Header(nameof(Scaler))]
         [SerializeField]
         private Vector3 _initialScale = Vector3.one;
         [SerializeField]

@@ -6,7 +6,7 @@ namespace DCFApixels
 
     public class Mover : SimpleAnimationBase
     {
-        [Header("Mover")]
+        [Header(nameof(Mover))]
 
         [SerializeField]
         private bool _isLocal = true;

@@ -5,7 +5,7 @@ namespace DCFApixels
     [AddComponentMenu("SimpleAnimations/Rotator", 11)]
     public class Rotator : SimpleAnimationBase
     {
-        [Header("Rotator")]
+        [Header(nameof(Rotator))]
         [SerializeField]
         private bool _isLocal = true;
 

@@ -14,7 +14,7 @@ namespace DCFApixels
         }
 #endif
 
-        [Header("SpriteCycler")]
+        [Header(nameof(SpriteCycler))]
         [SerializeField]
         private SpriteRenderer _spriteRenderer;
         [SerializeField]
