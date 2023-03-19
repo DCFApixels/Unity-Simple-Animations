@@ -2,7 +2,7 @@
 
 namespace DCFApixels
 {
-    [AddComponentMenu("SimpleAnimations/Rotator", 11)]
+    [AddComponentMenu("SimpleAnimations/" + nameof(Rotator), 11)]
     public class Rotator : SimpleAnimationBase
     {
         [Header(nameof(Rotator))]

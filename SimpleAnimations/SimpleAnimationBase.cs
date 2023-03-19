@@ -14,6 +14,7 @@ namespace DCFApixels
             {
                 _duration = float.Epsilon;
             }
+            OnValidateEvent();
         }
 #endif
         #endregion
@@ -63,7 +64,6 @@ namespace DCFApixels
                 }
             }
         }
-        [SerializeField]
         public bool IsRelative { get => _isRelative; set => _isRelative = value; }
         public bool RandomStartTime { get => _randomStartTime; set => _randomStartTime = value; }
         public float StartTime { get => _startTime; set => _startTime = value <= 1f ? value : value % 1f; }
@@ -89,6 +89,7 @@ namespace DCFApixels
         public int LoopNumber => _loopNumber;
         public TransformState RelativeTransform => _relativeTransform;
         #endregion
+
         private void Start()
         {
             _relativeTransform = new TransformState(transform);
@@ -202,6 +203,7 @@ namespace DCFApixels
         }
 
         protected virtual void Init() { }
+        protected virtual void OnValidateEvent() { }
         protected abstract void Do(float t);
 
         #region Utils

@@ -2,14 +2,13 @@ using UnityEngine;
 
 namespace DCFApixels
 {
+    [AddComponentMenu("SimpleAnimations/" + nameof(SpriteCycler), 11)]
     [RequireComponent(typeof(SpriteRenderer))]
-    [AddComponentMenu("SimpleAnimations/SpriteCycler", 11)]
     public class SpriteCycler : SimpleAnimationBase
     {
 #if UNITY_EDITOR
-        private new void OnValidate()
+        protected override void OnValidateEvent()
         {
-            base.OnValidate();
             _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 #endif

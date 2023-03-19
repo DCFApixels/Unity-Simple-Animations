@@ -2,8 +2,7 @@ using UnityEngine;
 
 namespace DCFApixels
 {
-    [AddComponentMenu("SimpleAnimations/Mover", 11)]
-
+    [AddComponentMenu("SimpleAnimations/" + nameof(Mover), 11)]
     public class Mover : SimpleAnimationBase
     {
         [Header(nameof(Mover))]

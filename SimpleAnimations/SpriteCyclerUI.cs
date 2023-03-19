@@ -3,28 +3,29 @@ using UnityEngine.UI;
 
 namespace DCFApixels
 {
+    [AddComponentMenu("SimpleAnimations/" + nameof(SpriteCyclerUI), 11)]
     [RequireComponent(typeof(Image))]
-    [AddComponentMenu("SimpleAnimations/SpriteCyclerUI", 11)]
     public class SpriteCyclerUI : SimpleAnimationBase
     {
 #if UNITY_EDITOR
-        private new void OnValidate()
+        protected override void OnValidateEvent()
         {
-            base.OnValidate();
-            _spriteRenderer = GetComponent<Image>();
+            _image = GetComponent<Image>();
         }
 #endif
 
         [Header(nameof(SpriteCyclerUI))]
         [SerializeField]
-        private Image _spriteRenderer;
+        private Image _image;
         [SerializeField]
         private Sprite[] _spriteSequence;
     
         protected override void Do(float t)
         {
             int index = Mathf.Min((int)(t * _spriteSequence.Length), _spriteSequence.Length - 1);
-            _spriteRenderer.sprite = _spriteSequence[index];
+            _image.sprite = _spriteSequence[index];
         }
+
+
     }
 }

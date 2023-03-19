@@ -2,7 +2,7 @@
 
 namespace DCFApixels
 {
-    [AddComponentMenu("SimpleAnimations/Scaler", 11)]
+    [AddComponentMenu("SimpleAnimations/" + nameof(Scaler), 11)]
     public class Scaler : SimpleAnimationBase
     {
         [Header(nameof(Scaler))]
